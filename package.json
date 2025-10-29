@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "@faker-js/faker": "^10.1.0",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "@types/lodash": "^4.17.20"
+  },
+  "scripts": {
+    "test": "npx playwright test",
+    "test:ui": "npx playwright test frontend/src/tests/ui",
+    "ui-mode": "npx playwright test --ui"
+  }
+}
