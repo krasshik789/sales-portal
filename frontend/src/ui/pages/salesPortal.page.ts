@@ -5,6 +5,7 @@ import { SALES_PORTAL_URL } from "../../config/env"
 export abstract class SalesPortalPage extends BasePage {
   readonly spinner = this.page.locator(".spinner-border");
   readonly toastMessage = this.page.locator(".toast-body");
+  readonly toastMessageCloseMessageButton = this.page.locator(".toast button.btn-close")
   abstract readonly uniqueElement: Locator;
 
   async waitForOpened() {

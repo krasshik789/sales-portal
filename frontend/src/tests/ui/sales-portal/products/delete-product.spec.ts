@@ -9,9 +9,10 @@ import { SignInPage } from "../../../../ui/pages/signIn.page";
 import _ from 'lodash'
 
 
-test.describe("[Sales Portal] [Products]", async () => {
 
-  test("Add new product", async ({ page }) => {
+test.describe("[Sales Portal] [Delete Product]", async () => {
+
+  test("Delete Product after creation", async ({ page }) => {
     const homePage = new HomePage(page);
     const signInPage = new SignInPage(page);
     const productsListPage = new ProductsListPage(page);
@@ -38,6 +39,15 @@ test.describe("[Sales Portal] [Products]", async () => {
     const getTableData = await productsListPage.getLastProduct(productData.name);
     const actualResult = _.omit(getTableData, ['createdOn']);
     expect(actualResult, 'Table data is correct').toEqual(expectedResult);
+
+     await productsListPage.clickDelete(productData.name);
+     await productsListPage.deleteModal.waitForOpened();
+     await productsListPage.deleteModal.clickDelete();
+     await productsListPage.waitForOpened();
+
+     const toastDeleted = productsListPage.toastMessage.locator(`text="${NOTIFICATIONS.PRODUCT_DELETED}"`);
+     await expect(toastDeleted).toBeVisible({ timeout: 5000 });
+     await expect(productsListPage.tableRowByName(productData.name)).toHaveCount(0);
 
   });
 });
